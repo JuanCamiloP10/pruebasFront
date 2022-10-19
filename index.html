@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Front Retos Ciclo 3</title>
+</head>
+<body>
+    <table>
+        <tr>FRONT RETOS CICLO 3 PROGRAMACION
+            <td>CONTROL DE INFORMACION DE FINCAS
+                <form onsubmit="crearFinca()">
+                    <div>
+                        <label for="fincaID">finca ID</label>
+                        <input type="number" name="farmID" id="farmID">
+                    </div>
+                    <div>
+                        <label for="address">Direccion</label>
+                        <input type="text" name="address" id="address">
+                    </div>
+                    <div>
+                        <label for="exension">Exension</label>
+                        <input type="number" name="exension" id="exension">
+                    </div>
+                    <div>
+                        <label for="category_id">Categoria ID</label>
+                        <input type="number" name="category_id" id="category_id">
+                    </div>
+                    <div>
+                        <label for="name_finca">Nombre finca</label>
+                        <input type="text" name="name_finca" id="name_finca">
+                    </div>
+                    <div>
+                        <input type="submit" value="Crear Finca">
+                        <button onClick="editarFinca()">Editar Finca</button>
+                    </div>
+                </form>
+
+                <td>
+                    <table id = "listaFinca">
+                        <thead>
+                            <tr>TABLA DE FINCAS
+                                <th>ID</th>
+                                <th>Direccion</th>
+                                <th>Exension</th>
+                                <th>Categoria_ID</th>
+                                <th>Nombre_finca</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </td>
+            </td>
+        </tr>
+        <tr>
+            <td>CONTROL DE INFORMACION DE CLIENTES
+                <form onsubmit="crearCliente()">
+                    <div>
+                        <label for="clienteID">cliente ID</label>
+                        <input type="number" name="clientID" id="clientID">
+                    </div>
+                    <div>
+                        <label for="Nombre_Cliente">Nombre cliente</label>
+                        <input type="text" name="nameClient" id="nameClient">
+                    </div>
+                    <div>
+                        <label for="Email">Email</label>
+                        <input type="text" name="email" id="email">
+                    </div>
+                    <div>
+                        <label for="Edad">Edad</label>
+                        <input type="number" name="age" id="age">
+                    </div>
+                    <div>
+                        <input type="submit" value="Crear Cliente">
+                        <button onClick="editarCliente()">Editar Cliente</button>
+                    </div>
+                </form>
+                
+                <td>
+                    <table id = "listaCliente">
+                        <thead>
+                            <tr>TABLA DE CLIENTES
+                                <th>clienteID</th>
+                                <th>Nombre_cliente</th>
+                                <th>Email</th>
+                                <th>Edad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </td>
+            </td>
+        </tr>
+        <tr>
+            <td>CONTROL DE INFORMACION DE MENSAJES
+                <form onsubmit="crearMensaje()">
+                    <div>
+                        <label for="mensajeID">mensaje ID</label>
+                        <input type="number" name="mesasgeID" id="mesasgeID">
+                    </div>
+                    <div>
+                        <label for="Mensaje">Mensaje</label>
+                        <input type="text" name="messagetext" id="messagetext">
+                    </div>
+                    <div>
+                        <input type="submit" value="Crear Mensaje">
+                        <button onClick="editarMensaje()">Editar Mensaje</button>
+                    </div>
+                </form>
+                
+                <td>
+                    <table id = "listaMensaje">
+                        <thead>
+                            <tr>TABLA DE MENSAJES
+                                <th>mensajeID</th>
+                                <th>Mensaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </td>
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript" src="./script.js"></script>
+</body>
+</html>
