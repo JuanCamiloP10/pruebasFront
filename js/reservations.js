@@ -4,27 +4,29 @@ const host = '132.145.212.189';
 //const host = 'localhost';
 
 //*******   *******    *******  *******/ 
-//*******    CRUD  CATEGORY     *******/ 
+//*******    CRUD  RESERVATION     *******/ 
 //*******   *******    *******  *******/ 
 
-function onCategorySubmit(e) {
+function onReservationSubmit(e) {
 	event.preventDefault();
-        const formData = readFormCategoryData();
-        createCategory(formData);
-        resetFormCategory();    
+        const formData = readFormReservationData();
+        createReservation(formData);
+        resetFormReservation();    
 }
 
 //Retrieve the data
-function readFormCategoryData() {
+function readFormReservationData() {
     var formData = {};
-    formData["id"] = document.getElementById("categoryId").value;
-    formData["name"] = document.getElementById("categoryName").value;
-    formData["description"] = document.getElementById("categoryDescription").value;
+    formData["id"] = document.getElementById("reservationId").value;
+    formData["startDate"] = document.getElementById("reservationStartDate").value;
+    formData["devolutionDate"] = document.getElementById("reservationDevolutionDate").value;
+    formData["client"] = {"idClient": parseInt(document.getElementById("reservationClientId").value)};
+    formData["ortopedic"] = {"id": parseInt(document.getElementById("reservationOrtopedicId").value)};
     return formData;
 }
 
-function createCategory(data){
-    const url = `http://${host}:8080/api/Category/save`;
+function createReservation(data){
+    const url = `http://${host}:8080/api/Reservation/save`;
 
     $.ajax({
         url : url,
@@ -43,16 +45,16 @@ function createCategory(data){
             console.log('errorInsert -->', error);
         },
         complete : function(xhr, status) {
-            location.reload();
+            // location.reload();
         }
     })
 }
 //Load data
-function loadCategoryData(){
-    const table = document.getElementById("categoryList").getElementsByTagName('tbody')[0];
+function loadReservationData(){
+    const table = document.getElementById("reservationList").getElementsByTagName('tbody')[0];
 
     $.ajax({
-        url : `http://${host}:8080/api/Category/all`,
+        url : `http://${host}:8080/api/Reservation/all`,
         data : null,
         headers: {  
             'Access-Control-Allow-Origin': true
@@ -64,14 +66,18 @@ function loadCategoryData(){
             data.map(item => {
                 const newRow = table.insertRow();
                 cell1 = newRow.insertCell(0);
-                    cell1.innerHTML = item.id;
+                    cell1.innerHTML = item.idReservation;
                 cell2 = newRow.insertCell(1);
-                    cell2.innerHTML = item.name;
+                    cell2.innerHTML = item.startDate;
                 cell3 = newRow.insertCell(2);
-                    cell3.innerHTML = item.description;
+                    cell3.innerHTML = item.startDate;
                 cell4 = newRow.insertCell(3);
-                cell4.innerHTML = `<button onClick="categorySelect(this)">Select</button> <button onClick="categoryDelete(this,${item.id})">Delete</button>`;
-                    
+                    cell4.innerHTML = item.client.idClient;
+                cell5 = newRow.insertCell(4);
+                    cell5.innerHTML = item.ortopedic.id;
+                cell6 = newRow.insertCell(5);
+                cell6.innerHTML = `<button onClick="reservationSelect(this)">Select</button> <button onClick="reservationDelete(this,${item.idReservation})">Delete</button>`;
+                 
             })
         },
         error: function(error) {
@@ -84,22 +90,24 @@ function loadCategoryData(){
     }) 
 }
 
-loadCategoryData();
+loadReservationData();
 //Insert the data
 
 
 //Edit the data
-function categorySelect(td) {
+function reservationSelect(td) {
     selectedRow = td.parentElement.parentElement;
-    document.getElementById("categoryId").value = selectedRow.cells[0].innerHTML;
-    document.getElementById("categoryName").value = selectedRow.cells[1].innerHTML;
-    document.getElementById("categoryDescription").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("reservationId").value = selectedRow.cells[0].innerHTML;
+    document.getElementById("reservationStartDate").value = selectedRow.cells[1].innerHTML;
+    document.getElementById("reservationDevolutionDate").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("reservationClientId").value = selectedRow.cells[3].innerHTML;
+    document.getElementById("reservationOrtopedicId").value = selectedRow.cells[4].innerHTML;
 }
-function categoryUpdate() {
-    const url = `http://${host}:8080/api/Category/update`;
-    const formData = readFormCategoryData();
+function reservationUpdate() {
+    const url = `http://${host}:8080/api/Reservation/update`;
+    const formData = readFormReservationData();
     console.log('formData ->', formData)
-    const data = {name: formData.name, description: formData.description, id: formData.id}
+    const data = {startDate: formData.startDate, devolutionDate: formData.devolutionDate, id: formData.id}
     $.ajax({
         url : url,
         data : JSON.stringify(data),
@@ -117,15 +125,15 @@ function categoryUpdate() {
             console.log('errorInsert -->', error);
         },
         complete : function(xhr, status) {
-            location.reload();
+            // location.reload();
         }
     })
 }
 
 //Delete the data
-function categoryDelete(td, id) {
+function reservationDelete(td, id) {
     $.ajax({
-        url : `http://${host}:8080/api/Category/${id}`,
+        url : `http://${host}:8080/api/Reservation/${id}`,
         data : null,
         type : "DELETE", //POST, PUT, DELETE,
         dataType : 'json',
@@ -146,15 +154,15 @@ function categoryDelete(td, id) {
     })
     if (confirm('Do you want to delete this record?')) {
         row = td.parentElement.parentElement;
-        document.getElementById('categoryList').deleteRow(row.rowIndex);
-        resetFormCategory();
+        document.getElementById('reservationList').deleteRow(row.rowIndex);
+        resetFormReservation();
     }
 }
 
 //Reset the data
-function resetFormCategory() {
-    document.getElementById("categoryId").value = '';
-    document.getElementById("categoryName").value = '';
-    document.getElementById("categoryDescription").value = '';
+function resetFormReservation() {
+    document.getElementById("reservationId").value = '';
+    document.getElementById("reservationName").value = '';
+    document.getElementById("reservationDescription").value = '';
     selectedRow = null;
 }

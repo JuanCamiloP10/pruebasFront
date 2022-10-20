@@ -4,27 +4,28 @@ const host = '132.145.212.189';
 //const host = 'localhost';
 
 //*******   *******    *******  *******/ 
-//*******    CRUD  CATEGORY     *******/ 
+//*******    CRUD  MESSAGE     *******/ 
 //*******   *******    *******  *******/ 
 
-function onCategorySubmit(e) {
+function onMessageSubmit(e) {
 	event.preventDefault();
-        const formData = readFormCategoryData();
-        createCategory(formData);
-        resetFormCategory();    
+        const formData = readFormMessageData();
+        createMessage(formData);
+        resetFormMessage();    
 }
 
 //Retrieve the data
-function readFormCategoryData() {
+function readFormMessageData() {
     var formData = {};
-    formData["id"] = document.getElementById("categoryId").value;
-    formData["name"] = document.getElementById("categoryName").value;
-    formData["description"] = document.getElementById("categoryDescription").value;
+    formData["id"] = parseInt(document.getElementById("messageId").value);
+    formData["messageText"] = document.getElementById("messageText").value;
+    formData["client"] = {"idClient": parseInt(document.getElementById("messageClientId").value)};
+    formData["ortopedic"] = {"id": parseInt(document.getElementById("messageOrtopedicId").value)};
     return formData;
 }
 
-function createCategory(data){
-    const url = `http://${host}:8080/api/Category/save`;
+function createMessage(data){
+    const url = `http://${host}:8080/api/Message/save`;
 
     $.ajax({
         url : url,
@@ -43,16 +44,16 @@ function createCategory(data){
             console.log('errorInsert -->', error);
         },
         complete : function(xhr, status) {
-            location.reload();
+            // location.reload();
         }
     })
 }
 //Load data
-function loadCategoryData(){
-    const table = document.getElementById("categoryList").getElementsByTagName('tbody')[0];
+function loadMessageData(){
+    const table = document.getElementById("messageList").getElementsByTagName('tbody')[0];
 
     $.ajax({
-        url : `http://${host}:8080/api/Category/all`,
+        url : `http://${host}:8080/api/Message/all`,
         data : null,
         headers: {  
             'Access-Control-Allow-Origin': true
@@ -64,13 +65,15 @@ function loadCategoryData(){
             data.map(item => {
                 const newRow = table.insertRow();
                 cell1 = newRow.insertCell(0);
-                    cell1.innerHTML = item.id;
+                    cell1.innerHTML = item.idMessage;
                 cell2 = newRow.insertCell(1);
-                    cell2.innerHTML = item.name;
+                    cell2.innerHTML = item.messageText;
                 cell3 = newRow.insertCell(2);
-                    cell3.innerHTML = item.description;
+                    cell3.innerHTML = item.client.idClient;
                 cell4 = newRow.insertCell(3);
-                cell4.innerHTML = `<button onClick="categorySelect(this)">Select</button> <button onClick="categoryDelete(this,${item.id})">Delete</button>`;
+                    cell4.innerHTML = item.ortopedic.id;
+                cell5 = newRow.insertCell(4);
+                cell5.innerHTML = `<button onClick="messageSelect(this)">Select</button> <button onClick="messageDelete(this,${item.idMessage})">Delete</button>`;
                     
             })
         },
@@ -84,22 +87,26 @@ function loadCategoryData(){
     }) 
 }
 
-loadCategoryData();
+loadMessageData();
 //Insert the data
 
 
 //Edit the data
-function categorySelect(td) {
+function messageSelect(td) {
     selectedRow = td.parentElement.parentElement;
-    document.getElementById("categoryId").value = selectedRow.cells[0].innerHTML;
-    document.getElementById("categoryName").value = selectedRow.cells[1].innerHTML;
-    document.getElementById("categoryDescription").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("messageId").value = selectedRow.cells[0].innerHTML;
+    document.getElementById("messageText").value = selectedRow.cells[1].innerHTML;
+    document.getElementById("messageClientId").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("messageOrtopedicId").value = selectedRow.cells[3].innerHTML;
 }
-function categoryUpdate() {
-    const url = `http://${host}:8080/api/Category/update`;
-    const formData = readFormCategoryData();
+function messageUpdate() {
+    const url = `http://${host}:8080/api/Message/update`;
+    const formData = readFormMessageData();
     console.log('formData ->', formData)
-    const data = {name: formData.name, description: formData.description, id: formData.id}
+    const data = {
+        messageText: formData.messageText,
+        idMessage: formData.id
+    }
     $.ajax({
         url : url,
         data : JSON.stringify(data),
@@ -117,15 +124,15 @@ function categoryUpdate() {
             console.log('errorInsert -->', error);
         },
         complete : function(xhr, status) {
-            location.reload();
+            // location.reload();
         }
     })
 }
 
 //Delete the data
-function categoryDelete(td, id) {
+function messageDelete(td, id) {
     $.ajax({
-        url : `http://${host}:8080/api/Category/${id}`,
+        url : `http://${host}:8080/api/Message/${id}`,
         data : null,
         type : "DELETE", //POST, PUT, DELETE,
         dataType : 'json',
@@ -134,7 +141,7 @@ function categoryDelete(td, id) {
         },
         success: function(data) {
             console.log('Eliminado -->', data);
-            location.reload();
+            // location.reload();
         },
         error: function(error) {
             alert('Error');
@@ -146,15 +153,16 @@ function categoryDelete(td, id) {
     })
     if (confirm('Do you want to delete this record?')) {
         row = td.parentElement.parentElement;
-        document.getElementById('categoryList').deleteRow(row.rowIndex);
-        resetFormCategory();
+        document.getElementById('messageList').deleteRow(row.rowIndex);
+        resetFormMessage();
     }
 }
 
 //Reset the data
-function resetFormCategory() {
-    document.getElementById("categoryId").value = '';
-    document.getElementById("categoryName").value = '';
-    document.getElementById("categoryDescription").value = '';
+function resetFormMessage() {
+    document.getElementById("messageId").value = '';
+    document.getElementById("messageText").value = '';
+    document.getElementById("messageClientId").value = '';
+    document.getElementById("messageOrtopedicId").value = '';
     selectedRow = null;
 }
