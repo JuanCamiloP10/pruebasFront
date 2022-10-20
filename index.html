@@ -1,127 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud Operation</title>
     <link type="text/css" rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>Front Retos Ciclo 3</title>
 </head>
+
 <body>
+    <h1 class="titlePage">
+        GESTION CATEGORIAS
+    </h1>
     <table>
-        <tr>FRONT RETOS CICLO 3 PROGRAMACION
-            <td>CONTROL DE INFORMACION DE FINCAS
-                <form onsubmit="crearFinca()">
-                    <div>
-                        <label for="fincaID">finca ID</label>
-                        <input type="number" name="farmID" id="farmID">
-                    </div>
-                    <div>
-                        <label for="address">Direccion</label>
-                        <input type="text" name="address" id="address">
-                    </div>
-                    <div>
-                        <label for="exension">Exension</label>
-                        <input type="number" name="exension" id="exension">
-                    </div>
-                    <div>
-                        <label for="category_id">Categoria ID</label>
-                        <input type="number" name="category_id" id="category_id">
-                    </div>
-                    <div>
-                        <label for="name_finca">Nombre finca</label>
-                        <input type="text" name="name_finca" id="name_finca">
-                    </div>
-                    <div>
-                        <input type="submit" value="Crear Finca">
-                        <button onClick="editarFinca()">Editar Finca</button>
-                    </div>
-                </form>
-
-                <td>
-                    <table id = "listaFinca">
-                        <thead>
-                            <tr>TABLA DE FINCAS
-                                <th>ID</th>
-                                <th>Direccion</th>
-                                <th>Exension</th>
-                                <th>Categoria_ID</th>
-                                <th>Nombre_finca</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </td>
-            </td>
-        </tr>
         <tr>
-            <td>CONTROL DE INFORMACION DE CLIENTES
-                <form onsubmit="crearCliente()">
+            <td>
+                <form autocomplete="off" onsubmit="onCategorySubmit()">
                     <div>
-                        <label for="clienteID">cliente ID</label>
-                        <input type="number" name="clientID" id="clientID">
+                        <label for="categoryId">Id</label>
+                        <p></p>
+                        <input type="text" name="categoryId" id="categoryId">
                     </div>
                     <div>
-                        <label for="Nombre_Cliente">Nombre cliente</label>
-                        <input type="text" name="nameClient" id="nameClient">
+                        <label for="categoryName">Name</label>
+                        <input type="text" name="categoryName" id="categoryName">
                     </div>
                     <div>
-                        <label for="Email">Email</label>
-                        <input type="text" name="email" id="email">
+                        <label for="categoryDescription">Description</label>
+                        <input type="text" name="categoryDescription" id="categoryDescription">
                     </div>
-                    <div>
-                        <label for="Edad">Edad</label>
-                        <input type="number" name="age" id="age">
-                    </div>
-                    <div>
-                        <input type="submit" value="Crear Cliente">
-                        <button onClick="editarCliente()">Editar Cliente</button>
-                    </div>
-                </form>
-                
-                <td>
-                    <table id = "listaCliente">
-                        <thead>
-                            <tr>TABLA DE CLIENTES
-                                <th>clienteID</th>
-                                <th>Nombre_cliente</th>
-                                <th>Email</th>
-                                <th>Edad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                        </tbody>
-                    </table>
-                </td>
-            </td>
-        </tr>
-        <tr>
-            <td>CONTROL DE INFORMACION DE MENSAJES
-                <form onsubmit="crearMensaje()">
-                    <div>
-                        <label for="mensajeID">mensaje ID</label>
-                        <input type="number" name="mesasgeID" id="mesasgeID">
-                    </div>
-                    <div>
-                        <label for="Mensaje">Mensaje</label>
-                        <input type="text" name="messagetext" id="messagetext">
-                    </div>
-                    <div>
-                        <input type="submit" value="Crear Mensaje">
-                        <button onClick="editarMensaje()">Editar Mensaje</button>
+                    <div class="form_action--button">
+                        <input type="submit" value="Create">
                     </div>
                 </form>
-                
+                <button onClick="categoryUpdate(this)">Edit</button> 
                 <td>
-                    <table id = "listaMensaje">
+                    <table class="list" id="categoryList">
                         <thead>
-                            <tr>TABLA DE MENSAJES
-                                <th>mensajeID</th>
-                                <th>Mensaje</th>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,6 +49,26 @@
             </td>
         </tr>
     </table>
-    <script type="text/javascript" src="./script.js"></script>
+    <div>
+        <h4 class="titlePage">
+            <a href="/client.html">GESTION CLIENTES</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/ortopedic.html">GESTION ORTOPEDIC</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/messages.html">GESTION MENSAJES</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/reservation.html">GESTION RESERVACIONES</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/index.html">GESTION CATEGORY</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/farm.html">GESTION FARM</a>
+        </h4>
+    </div>
+    <script type="text/javascript" src="./js/category.js"></script>
 </body>
 </html>

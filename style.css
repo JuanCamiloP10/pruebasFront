@@ -1,34 +1,78 @@
 body{
     background-image: url('4-min.jpg');
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
 }
 
 table{
-    background: rgb(91, 106, 243);
+    width: 80%;
+    margin: 40px auto;
+    background: rgb(124,154,167);
 }
 
-td{
-    border: 2px solid rgb(254, 252, 253);
-    padding: 10px 50px;
-}
-
-input[type="text"],input[type="number"]{
+table.list{
+    text-align: center;
     width: 100%;
 }
 
-button, input[type="submit"]{
-    background: rgb(241, 238, 238);
-    padding: 6px 15 px;
-    margin: 15px 0 10px;
+td{
+    border: 1px solid rgb(204,200,200);
+    text-align: left;
+    padding: 8px 15px;
+}
+
+tr:nth-child(even), table.list thread> tr{
+    background-color: rgb(204,200,200);
+}
+
+input[type="text"],input[type="number"]{
+    width:91%;
+    padding:12px 20px;
+    margin:8px 0;
+    display: inline-block;
+    border: 1px solid rgb(165,161,161);
+    border-radius: 4px;
+}
+
+input[type="submit"],input[type="reset"]{
+    background: #eee;
+    padding:6px 12px;
+    margin:15px 0 10px;
     display: inline-block;
     border: none;
-    border-radius: 10px;
+    border-radius: 30px;
     font-size: 1rem;
     cursor: pointer;
     outline: none;
 }
 
-button:hover, input[type="submit"]:hover{
-    background: #f5f7f8;
+input[type="submit"]:hover{
+    background: #4b99d8;
+}
+
+input[type="reset"]:hover{
+    background: #4b99d8;
+}
+
+button{
+    background: #eee;
+    padding:6px 12px;
+    margin:15px 0 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover{
+    background:#4b99d8 ;
+}
+
+.titlePage{
+    text-align: center;
+    width: 100%;
+    color: #eee;
 }
